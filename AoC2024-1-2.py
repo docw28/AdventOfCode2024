@@ -1,10 +1,6 @@
 import time
-puzzleInput = """3   4
-4   3
-2   5
-1   3
-3   9
-3   3"""
+puzzleInput = str(open("day1input").read())
+
 listA = []
 listB = []
 totalDistance = 0
@@ -14,6 +10,7 @@ similarityTime = 0
 
 
 puzzleInput = puzzleInput.split("\n")
+puzzleInput.pop()
 
 for pair in puzzleInput:
     pair = pair.split("   ")
