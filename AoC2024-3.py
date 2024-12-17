@@ -1,12 +1,16 @@
 import re
 
-testInput = "xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))"
+testInput1 = "xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))"
+testInput2 = "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))"
 
 puzzleInput = str(open("day3input").read())
 
-def extractInstructions(string):
-    pattern = r"mul\(\d+,\d+\)"
-    instructions = re.findall(pattern, puzzleInput)
+def extractInstructions(string, withDo):
+    if withDo:
+        pattern = r"mul\(\d+,\d+\)|do\(\)|don\'t\(\)"
+    else:
+        pattern = r"mul\(\d+,\d+\)"
+    instructions = re.findall(pattern, string)
     return instructions
 
 def numsFromInstructions(instructions):
@@ -14,7 +18,7 @@ def numsFromInstructions(instructions):
         instructions[i] = (instructions[i][4:-1]).split(",")
     return instructions
 
-def executeInstructions(garbledInstructions):
+def multiplyNums(garbledInstructions):
     total = 0
     instructions = extractInstructions(garbledInstructions)
     nums = numsFromInstructions(instructions)
@@ -22,4 +26,5 @@ def executeInstructions(garbledInstructions):
         total += int(pair[0]) * int(pair[1])
     return total
 
-print(executeInstructions(puzzleInput))
+print(extractInstructions(testInput2,True))
+
