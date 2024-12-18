@@ -5,7 +5,7 @@ testInput2 = "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mu
 
 puzzleInput = str(open("day3input").read())
 
-def extractInstructions(string, withDo):
+def extractInstructions(string, withDo): # withDo True if you want "do()" and "don't()" detected
     if withDo:
         pattern = r"mul\(\d+,\d+\)|do\(\)|don\'t\(\)"
     else:
@@ -14,17 +14,28 @@ def extractInstructions(string, withDo):
     return instructions
 
 def numsFromInstructions(instructions):
-    for i in range(len(instructions)):
-        instructions[i] = (instructions[i][4:-1]).split(",")
-    return instructions
+    nums = []
+    do = True
+    for instruction in instructions:
+        if instruction == "do()":
+            do = True
+        elif instruction == "don't()":
+            do = False
+        elif do == True:
+            nums.append(instruction[4:-1].split(","))
+    return nums
 
-def multiplyNums(garbledInstructions):
+def multiplyNums(nums):
     total = 0
-    instructions = extractInstructions(garbledInstructions)
-    nums = numsFromInstructions(instructions)
-    for pair in nums:
-        total += int(pair[0]) * int(pair[1])
+    for num in nums:
+        total += int(num[0]) * int(num[1])
     return total
 
-print(extractInstructions(testInput2,True))
+def mullItOver(string, withDo):
+    instructions = extractInstructions(string, withDo)
+    nums = numsFromInstructions(instructions)
+    return multiplyNums(nums)
+
+print(mullItOver(puzzleInput, False))
+print(mullItOver(puzzleInput, True))
 
