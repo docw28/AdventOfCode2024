@@ -9,6 +9,8 @@ SAXAMASAAA
 MAMMMXMMMM
 MXMXAXMASX""" # solution is 18
 
+vectors = [[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0],[-1,1]]
+
 def ingest(inputString):
     inputList = []
     ingestedString = []
@@ -21,11 +23,28 @@ def ingest(inputString):
 
 def wordSearch(array, string):
     total = 0
-    for line in array:
+    for i in range(len(array)):
         print("\n", end="")
-        for char in line:
-            if char == string[0]:
-                print("ding", end="")
+        for j in range(len(array[i])):
+            if array[i][j] == string[0]: # string is "XMAS"
+                print("-", end="")
+                for vector in vectors:
+                    maxI = i + (vector[0] * (len(string))-1)
+                    maxJ = j + (vector[1] * (len(string))-1)
+                    if (0 <= maxI < len(array)) and (0 <= maxJ < len(array[i])):
+                      print(i,j, end="")
+                      check = ""
+                      for c in range(len(string):
+                          check += array[i+(vector[0]*c)][j+(vector[1]*c)]
+                      print(",", check, end="")
+                      if check == string:
+                          total += 1
+                            
+
+
+                
+                
+
     # look for each instance of the starting character
     # check each direction for the next character
     # if found, check the same direction for the next character
@@ -36,4 +55,5 @@ def ceresSearch(puzzleInput, string):
     answer = wordSearch(puzzleInput, string)
     return answer
 
-print(ceresSearch(testInput1, "XMAS"))
+print("\n", ceresSearch(testInput1, "XMAS"))
+
