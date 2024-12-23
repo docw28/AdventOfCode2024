@@ -9,7 +9,7 @@ SAXAMASAAA
 MAMMMXMMMM
 MXMXAXMASX""" # solution is 18
 
-puzzleInput = str(open("day4input").read())
+puzzleInput = str(open("day4input").read()).strip()
 
 vectors = [[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0],[-1,1]]
 
@@ -26,19 +26,19 @@ def ingest(inputString):
 def wordSearch(array, string):
     total = 0
     for i in range(len(array)):
-        print("\n", end="")
+        # print("\n", end="")
         for j in range(len(array[i])):
             if array[i][j] == string[0]: # string is "XMAS"
-                print("-", end="")
+                # print("-", end="")
                 for vector in vectors:
                     maxI = i + (vector[0] * ((len(string))-1))
                     maxJ = j + (vector[1] * ((len(string))-1))
-                    print(maxI,maxJ)
+                    # print(maxI,maxJ)
                     if (0 <= maxI < len(array)) and (0 <= maxJ < len(array[i])):
                       check = ""
                       for c in range(len(string)):
                           check += array[i+(vector[0]*c)][j+(vector[1]*c)]
-                      print(",", check, end="")
+                      # print(",", check, end="")
                       if check == string:
                           total += 1
     return total
