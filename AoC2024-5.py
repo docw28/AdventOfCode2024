@@ -48,13 +48,27 @@ def isValidUpdate(update, rules):
                 return False
     return True
 
+def sortByRules(update, rules):
+    while not isValidUpdate(update, rules):
+        for i in range(len(update)-1):
+            if [update[i],update[i+1]] not in rules:
+                temp = update[i]
+                update[i] = update[i+1]
+                update[i+1] = temp
+    return update
+
 def printQueue(string):
-    total = 0
+    totalGood = totalFixed = 0
     rules = ingest(string, "rules")
     updates = ingest(string, "updates")
     for i in range(len(updates)):
         if (isValidUpdate(updates[i],rules)):
-            total += int(updates[i][len(updates[i])//2])
-    return total
+            totalGood += int(updates[i][len(updates[i])//2])
+        else:
+            updates[i] = sortByRules(updates[i],rules)
+            totalFixed += int(updates[i][len(updates[i])//2])
+    return totalGood, totalFixed
 
 print(printQueue(puzzleInput))
+# print(printQueue(testInput1))
+
