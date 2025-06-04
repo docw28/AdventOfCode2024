@@ -64,3 +64,8 @@ def guardGallivant(grid):
 
     return uniquePositions
 print(guardGallivant(puzzleInput))
+
+# Next step: How many positions would add a loop if you placed an object there
+
+# Identify loops. Visiting same place twice? Thrice? Making the same turn!
+# Iterate over every instance of the map, with an object at every position
